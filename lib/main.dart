@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Yes No App'),
         ),
-        body: const Center(
-          child: Text('Hello World'),
+        body: Center(
+          child: FilledButton.tonal(onPressed: (){}, child: Text("Click me")),
         ),
       ),
     );
