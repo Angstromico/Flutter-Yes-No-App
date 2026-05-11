@@ -13,14 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Yes No App',
       debugShowCheckedModeBanner: false,
       theme: AppTheme(colorIndex: 0).theme(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Yes No App'),
-        ),
-        body: Center(
-          child: FilledButton.tonal(onPressed: (){}, child: Text("Click me")),
-        ),
-      ),
+      home: ChatScreen(),
     );
   }
 }
