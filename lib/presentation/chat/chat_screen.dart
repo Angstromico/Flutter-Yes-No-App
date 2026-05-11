@@ -10,7 +10,7 @@ class ChatScreen extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage('https://i.pinimg.com/736x/1c/8b/0e/1c8b0e5a9d9f2a7c3e5b6a7f8c9d0e.jpg'),
+            backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
           ),
         ),
         title: const Text('Chat Screen'),
