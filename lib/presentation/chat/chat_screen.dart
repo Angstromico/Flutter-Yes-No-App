@@ -16,8 +16,14 @@ class ChatScreen extends StatelessWidget {
         title: const Text('Chat Screen'),
         centerTitle: true,
       ),
-      body: Center(
-          child: FilledButton.tonal(onPressed: (){}, child: Text("Click me")),
+      body: Container(
+        color: Colors.white,
+        child: const Center(
+          child: Text(
+            'This is the Chat Screen',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
