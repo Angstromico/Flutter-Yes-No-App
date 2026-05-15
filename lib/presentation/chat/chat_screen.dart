@@ -16,13 +16,20 @@ class ChatScreen extends StatelessWidget {
         title: const Text('Chat Screen'),
         centerTitle: true,
       ),
-      body: Container(
-        color: Colors.white,
-        child: const Center(
-          child: Text(
-            'This is the Chat Screen',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+      body: _ChatView(),
+    );
+  }
+}
+
+class _ChatView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: const Center(
+        child: Text(
+          'This is the Chat Screen',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );
