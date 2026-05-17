@@ -26,8 +26,9 @@ class _ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: ListView.builder(
+        SafeArea(
+          child: Expanded(
+            child: ListView.builder(
             itemCount: 20,
             itemBuilder: (context, index) {
               return ListTile(
@@ -39,20 +40,19 @@ class _ChatView extends StatelessWidget {
               );
             },
           ),
-        ),
+        )),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            children: [
-              SafeArea(
-                child: Expanded(
-                child: TextField(
+             children: [
+               Expanded(
+                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Type a message',
                     border: OutlineInputBorder(),
                   ),
                 ),
-              )),
+                ),
               IconButton(
                 icon: Icon(Icons.send),
                 onPressed: () {
