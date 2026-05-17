@@ -26,23 +26,26 @@ class _ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: ListView.builder(
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
-                ),
-                title: Text('User $index'),
-                subtitle: Text('Hello! This is a message from user $index.'),
-              );
-            },
+        Expanded(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
+                  ),
+                  title: Text('User $index'),
+                  subtitle: Text('Hello! This is a message from user $index.'),
+                );
+              },
+            ),
           ),
-        )),
-        Padding(
+        ),
+      ),
+      Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
              children: [
@@ -51,10 +54,10 @@ class _ChatView extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: 'Type a message',
                     border: OutlineInputBorder(),
-                  ),
-                ),
-                ),
-              IconButton(
+                    ),
+                   ),
+                 ),
+                 IconButton(
                 icon: Icon(Icons.send),
                 onPressed: () {
                   // Handle send button press
