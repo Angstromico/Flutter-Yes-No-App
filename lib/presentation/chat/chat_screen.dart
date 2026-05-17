@@ -27,7 +27,8 @@ class _ChatView extends StatelessWidget {
     return Column(
       children: [
         SafeArea(
-          child: Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ListView.builder(
             itemCount: 20,
             itemBuilder: (context, index) {
