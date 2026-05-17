@@ -44,14 +44,15 @@ class _ChatView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Expanded(
+              SafeArea(
+                child: Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Type a message',
                     border: OutlineInputBorder(),
                   ),
                 ),
-              ),
+              )),
               IconButton(
                 icon: Icon(Icons.send),
                 onPressed: () {
