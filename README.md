@@ -2,6 +2,12 @@
 
 A Flutter application that allows users to get a "Yes" or "No" answer to their questions.
 
+
+<p align="center">
+  <img src="./main.png" alt="Project banner" width="600"/>
+</p>
+
+
 ## Getting Started
 
 ### Prerequisites
