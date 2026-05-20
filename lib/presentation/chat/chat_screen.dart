@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -33,13 +34,7 @@ class _ChatView extends StatelessWidget {
               child: ListView.builder(
               itemCount: 20,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
-                  ),
-                  title: Text('User $index'),
-                  subtitle: Text('Hello! This is a message from user $index.'),
-                );
+                return MyMessageBubble(index: index);
               },
             ),
           ),
