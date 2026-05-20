@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/message_image.dart';
 
 class MyMessageBubble extends StatelessWidget {
   final String message;
+  final String? imageUrl;
 
   const MyMessageBubble({
     super.key,
     required this.message,
+    this.imageUrl,
   });
 
   @override
@@ -15,6 +18,10 @@ class MyMessageBubble extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
+        if (imageUrl != null) ...[
+          MessageImage(imageUrl: imageUrl!),
+          const SizedBox(height: 5),
+        ],
         Container(
           decoration: BoxDecoration(
             color: colors.primary,

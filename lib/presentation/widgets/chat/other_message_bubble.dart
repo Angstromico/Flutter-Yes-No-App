@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/message_image.dart';
 
 class OtherMessageBubble extends StatelessWidget {
   final String message;
+  final String? imageUrl;
 
   const OtherMessageBubble({
     super.key,
     required this.message,
+    this.imageUrl,
   });
 
   @override
@@ -29,6 +32,10 @@ class OtherMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
+        if (imageUrl != null) ...[
+          MessageImage(imageUrl: imageUrl!),
+          const SizedBox(height: 10),
+        ],
       ],
     );
   }
