@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 
 class MyMessageBubble extends StatelessWidget {
-  final int index;
+  final String message;
 
   const MyMessageBubble({
     super.key,
-    required this.index,
+    required this.message,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(
-          'https://cdn-icons-png.flaticon.com/512/3541/3541871.png',
+    final colors = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: colors.primary,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
         ),
-      ),
-      title: Text('User $index'),
-      subtitle: Text('Hello! This is a message from user $index.'),
+        const SizedBox(height: 5),
+      ],
     );
   }
 }
