@@ -38,12 +38,12 @@ class _ChatView extends StatelessWidget {
                 if (index % 2 == 0) {
                   return MyMessageBubble(
                     message: 'My message $index',
-                    imageUrl: (index % 6 == 0) ? 'https://yesno.wtf/assets/yes/2-4d2900fa99e32a03fcf11673a074ec10.gif' : null,
+                    imageUrl: (index % 6 == 0) ? 'https://www.hudsonyardsnewyork.com/sites/default/files/styles/experience_details/public/2024-10/Vessel%20in%20New%20York%20City_Courtesy%20of%20Vessel_0.jpg?h=1701b1d9&itok=aY0GiOXO' : null,
                   );
                 } else {
                   return OtherMessageBubble(
                     message: 'Other message $index',
-                    imageUrl: (index % 5 == 0) ? 'https://yesno.wtf/assets/no/0-bb7131dbac239e25d2f8ef41217e5831.gif' : null,
+                    imageUrl: (index % 5 == 0) ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq0m-UZ2Iq13G-_ysLKXzNEbTSMWbmlTxFj6Y_LdpZNzlsnuyVBvwfufpKvZbZKnX6eFYELPo1WptD60Kno5bdc7CkzErYDr3sOq2UqxMx7YRITEZgbqRDs_f2DpnPf6eDnCD1Itd_Aww8/s2048/SpaceX+Starship+evolution+2016-2019+by+Kimi+Talvitie.jpg' : null,
                   );
                 }
               },
