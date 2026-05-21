@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/gif_selector.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
