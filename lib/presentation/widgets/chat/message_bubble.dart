@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_image.dart';
 
-class MyMessageBubble extends StatelessWidget {
+class MessageBubble extends StatelessWidget {
   final String message;
   final String? imageUrl;
+  final bool fromMe;
 
-  const MyMessageBubble({
+  const MessageBubble({
     super.key,
     required this.message,
     this.imageUrl,
+    this.fromMe = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
+    final alignment = fromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    final color = fromMe ? colors.primary : colors.secondary;
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: alignment,
       children: [
-        if (imageUrl != null) ...[
+        if (fromMe && imageUrl != null) ...[
           MessageImage(imageUrl: imageUrl!),
           const SizedBox(height: 5),
         ],
         Container(
           decoration: BoxDecoration(
-            color: colors.primary,
+            color: color,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
@@ -36,6 +41,10 @@ class MyMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
+        if (!fromMe && imageUrl != null) ...[
+          MessageImage(imageUrl: imageUrl!),
+          const SizedBox(height: 10),
+        ],
       ],
     );
   }

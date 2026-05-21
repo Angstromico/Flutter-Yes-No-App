@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
-import 'package:yes_no_app/presentation/widgets/chat/other_message_bubble.dart';
+import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -35,17 +34,15 @@ class _ChatView extends StatelessWidget {
               child: ListView.builder(
               itemCount: 20,
               itemBuilder: (context, index) {
-                if (index % 2 == 0) {
-                  return MyMessageBubble(
-                    message: 'My message $index',
-                    imageUrl: (index % 6 == 0) ? 'https://www.hudsonyardsnewyork.com/sites/default/files/styles/experience_details/public/2024-10/Vessel%20in%20New%20York%20City_Courtesy%20of%20Vessel_0.jpg?h=1701b1d9&itok=aY0GiOXO' : null,
-                  );
-                } else {
-                  return OtherMessageBubble(
-                    message: 'Other message $index',
-                    imageUrl: (index % 5 == 0) ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq0m-UZ2Iq13G-_ysLKXzNEbTSMWbmlTxFj6Y_LdpZNzlsnuyVBvwfufpKvZbZKnX6eFYELPo1WptD60Kno5bdc7CkzErYDr3sOq2UqxMx7YRITEZgbqRDs_f2DpnPf6eDnCD1Itd_Aww8/s2048/SpaceX+Starship+evolution+2016-2019+by+Kimi+Talvitie.jpg' : null,
-                  );
-                }
+                final isMine = index % 2 == 0;
+                
+                return MessageBubble(
+                  message: isMine ? 'My message $index' : 'Other message $index',
+                  fromMe: isMine,
+                  imageUrl: isMine 
+                    ? (index % 6 == 0 ? 'https://www.hudsonyardsnewyork.com/sites/default/files/styles/experience_details/public/2024-10/Vessel%20in%20New%20York%20City_Courtesy%20of%20Vessel_0.jpg?h=1701b1d9&itok=aY0GiOXO' : null)
+                    : (index % 5 == 0 ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq0m-UZ2Iq13G-_ysLKXzNEbTSMWbmlTxFj6Y_LdpZNzlsnuyVBvwfufpKvZbZKnX6eFYELPo1WptD60Kno5bdc7CkzErYDr3sOq2UqxMx7YRITEZgbqRDs_f2DpnPf6eDnCD1Itd_Aww8/s2048/SpaceX+Starship+evolution+2016-2019+by+Kimi+Talvitie.jpg' : null),
+                );
               },
             ),
           ),
