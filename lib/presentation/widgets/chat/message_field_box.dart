@@ -41,9 +41,10 @@ class MessageFieldBox extends StatelessWidget {
         focusNode.unfocus();
       },
       contentInsertionConfiguration: ContentInsertionConfiguration(
+        allowedMimeTypes: const <String>['image/gif', 'image/png', 'image/jpeg', 'image/webp'],
         onContentInserted: (content) {
-          if (onImageSelected != null && content.uri != null) {
-            onImageSelected!(content.uri!);
+          if (onImageSelected != null) {
+            onImageSelected!(content.uri);
           }
         },
       ),
