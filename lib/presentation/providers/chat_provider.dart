@@ -25,6 +25,17 @@ class ChatProvider extends ChangeNotifier {
     moveScrollToBottom();
   }
 
+  Future<void> sendImage(String imageUrl) async {
+    final newMessage = Message(
+      text: 'GIF Sent', 
+      fromWho: FromWho.me,
+      imageUrl: imageUrl
+    );
+    messageList.add(newMessage);
+    notifyListeners();
+    moveScrollToBottom();
+  }
+
   Future<void> herReply() async {
     final herMessage = await yesNoDatasource.getAnswer();
     messageList.add(Message(

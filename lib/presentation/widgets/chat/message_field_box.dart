@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class MessageFieldBox extends StatelessWidget {
   final ValueChanged<String> onValue;
+  final ValueChanged<String>? onImageSelected;
 
   const MessageFieldBox({
     super.key, 
-    required this.onValue
+    required this.onValue,
+    this.onImageSelected,
   });
 
   @override
@@ -38,6 +40,13 @@ class MessageFieldBox extends StatelessWidget {
       onTapOutside: (event) {
         focusNode.unfocus();
       },
+      contentInsertionConfiguration: ContentInsertionConfiguration(
+        onContentInserted: (content) {
+          if (onImageSelected != null && content.uri != null) {
+            onImageSelected!(content.uri!);
+          }
+        },
+      ),
       focusNode: focusNode,
       controller: textController,
       decoration: inputDecoration,
