@@ -5,6 +5,7 @@ import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 import 'package:yes_no_app/presentation/widgets/chat/gif_selector.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_field_box.dart';
+import 'package:yes_no_app/presentation/widgets/chat/typing_indicator.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -41,15 +42,19 @@ class _ChatView extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 controller: chatProvider.chatScrollController,
-                itemCount: chatProvider.messageList.length,
+                itemCount: chatProvider.messageList.length + (chatProvider.isTyping ? 1 : 0),
                 itemBuilder: (context, index) {
-                  final message = chatProvider.messageList[index];
+                  if (index < chatProvider.messageList.length) {
+                    final message = chatProvider.messageList[index];
 
-                  return MessageBubble(
-                    message: message.text,
-                    fromMe: (message.fromWho == FromWho.me),
-                    imageUrl: message.imageUrl,
-                  );
+                    return MessageBubble(
+                      message: message.text,
+                      fromMe: (message.fromWho == FromWho.me),
+                      imageUrl: message.imageUrl,
+                    );
+                  }
+
+                  return const TypingIndicator();
                 },
               ),
             ),
