@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
 import 'package:yes_no_app/infrastructure/datasources/yes_no_datasource.dart';
@@ -30,6 +32,17 @@ class ChatProvider extends ChangeNotifier {
       text: 'GIF Sent', 
       fromWho: FromWho.me,
       imageUrl: imageUrl
+    );
+    messageList.add(newMessage);
+    notifyListeners();
+    moveScrollToBottom();
+  }
+
+  Future<void> sendImageBytes(Uint8List bytes) async {
+    final newMessage = Message(
+      text: 'Sticker/GIF Sent', 
+      fromWho: FromWho.me,
+      imageBytes: bytes
     );
     messageList.add(newMessage);
     notifyListeners();

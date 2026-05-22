@@ -1,8 +1,9 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class MessageFieldBox extends StatelessWidget {
   final ValueChanged<String> onValue;
-  final ValueChanged<String>? onImageSelected;
+  final Function(String?, Uint8List?)? onImageSelected;
 
   const MessageFieldBox({
     super.key, 
@@ -44,7 +45,7 @@ class MessageFieldBox extends StatelessWidget {
         allowedMimeTypes: const <String>['image/gif', 'image/png', 'image/jpeg', 'image/webp'],
         onContentInserted: (content) {
           if (onImageSelected != null) {
-            onImageSelected!(content.uri);
+            onImageSelected!(content.uri, content.data);
           }
         },
       ),

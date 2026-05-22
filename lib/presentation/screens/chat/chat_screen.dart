@@ -64,7 +64,13 @@ class _ChatView extends StatelessWidget {
                   child: MessageFieldBox(
                     // onValue: (value) => chatProvider.sendMessage(value),
                     onValue: chatProvider.sendMessage,
-                    onImageSelected: chatProvider.sendImage,
+                    onImageSelected: (uri, bytes) {
+                      if (bytes != null) {
+                        chatProvider.sendImageBytes(bytes);
+                      } else if (uri != null) {
+                        chatProvider.sendImage(uri);
+                      }
+                    },
                   ),
                 ),
               ],
