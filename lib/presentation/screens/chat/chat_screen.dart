@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
 import 'package:yes_no_app/presentation/providers/chat_provider.dart';
+import 'package:yes_no_app/presentation/widgets/chat/gif_selector.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_field_box.dart';
 
@@ -54,9 +55,19 @@ class _ChatView extends StatelessWidget {
             ),
 
             /// Caja de texto de mensajes
-            MessageFieldBox(
-              // onValue: (value) => chatProvider.sendMessage(value),
-              onValue: chatProvider.sendMessage,
+            Row(
+              children: [
+                GifSelector(
+                  onGifSelected: chatProvider.sendImage,
+                ),
+                Expanded(
+                  child: MessageFieldBox(
+                    // onValue: (value) => chatProvider.sendMessage(value),
+                    onValue: chatProvider.sendMessage,
+                    onImageSelected: chatProvider.sendImage,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
