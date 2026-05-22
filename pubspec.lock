@@ -244,12 +244,11 @@ packages:
     source: hosted
     version: "1.0.0"
   objective_c:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: objective_c
-      sha256: "6cb691c686fa2838c6deb34980d426145c2a5d537491cb83d463c33cdbc726ed"
-      url: "https://pub.dev"
-    source: hosted
+      path: "patches/objective_c"
+      relative: true
+    source: path
     version: "9.4.1"
   package_config:
     dependency: transitive
