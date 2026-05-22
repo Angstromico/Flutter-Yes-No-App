@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yes_no_app/presentation/widgets/chat/gif_selector.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_app/domain/entities/message.dart';
+import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
+import 'package:yes_no_app/presentation/widgets/chat/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -9,14 +12,14 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+        leading: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: CircleAvatar(
             backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
           ),
         ),
-        title: const Text('Chat Screen'),
-        centerTitle: true,
+        title: const Text('Mi Amor ♥'),
+        centerTitle: false,
       ),
       body: _ChatView(),
     );
@@ -26,57 +29,38 @@ class ChatScreen extends StatelessWidget {
 class _ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+
+    final chatProvider = context.watch<ChatProvider>();
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Expanded(
               child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                final isMine = index % 2 == 0;
-                
-                return MessageBubble(
-                  message: isMine ? 'My message $index' : 'Other message $index',
-                  fromMe: isMine,
-                  imageUrl: isMine 
-                    ? (index % 6 == 0 ? 'https://www.hudsonyardsnewyork.com/sites/default/files/styles/experience_details/public/2024-10/Vessel%20in%20New%20York%20City_Courtesy%20of%20Vessel_0.jpg?h=1701b1d9&itok=aY0GiOXO' : null)
-                    : (index % 5 == 0 ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq0m-UZ2Iq13G-_ysLKXzNEbTSMWbmlTxFj6Y_LdpZNzlsnuyVBvwfufpKvZbZKnX6eFYELPo1WptD60Kno5bdc7CkzErYDr3sOq2UqxMx7YRITEZgbqRDs_f2DpnPf6eDnCD1Itd_Aww8/s2048/SpaceX+Starship+evolution+2016-2019+by+Kimi+Talvitie.jpg' : null),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-      Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-             children: [
-               GifSelector(
-                 onGifSelected: (imageUrl) {
-                   // In a real app, this would add a message to the provider
-                   print('Selected GIF: $imageUrl');
-                 },
-               ),
-               Expanded(
-                 child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Type a message',
-                    border: OutlineInputBorder(),
-                    ),
-                   ),
-                 ),
-                 IconButton(
-                icon: Icon(Icons.send),
-                onPressed: () {
-                  // Handle send button press
+                controller: chatProvider.chatScrollController,
+                itemCount: chatProvider.messageList.length,
+                itemBuilder: (context, index) {
+                  final message = chatProvider.messageList[index];
+
+                  return MessageBubble(
+                    message: message.text,
+                    fromMe: (message.fromWho == FromWho.me),
+                    imageUrl: message.imageUrl,
+                  );
                 },
               ),
-            ],
-          ),
+            ),
+
+            /// Caja de texto de mensajes
+            MessageFieldBox(
+              // onValue: (value) => chatProvider.sendMessage(value),
+              onValue: chatProvider.sendMessage,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
