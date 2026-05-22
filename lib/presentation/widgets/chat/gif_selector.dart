@@ -16,11 +16,18 @@ class _GifSelectorState extends State<GifSelector> {
   bool _isLoading = false;
   List<YesNoModel> _gifs = [];
 
-  Future<void> _loadGifs() async {
-    setState(() => _isLoading = true);
+  Future<void> _loadGifs([VoidCallback? onUpdate]) async {
+    if (mounted) {
+      setState(() => _isLoading = true);
+      if (onUpdate != null) onUpdate();
+    }
+
     try {
       final List<Future<YesNoModel>> futures = List.generate(6, (_) => _datasource.getAnswer());
-      _gifs = await Future.wait(futures);
+      final results = await Future.wait(futures);
+      if (mounted) {
+        _gifs = results;
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -28,12 +35,14 @@ class _GifSelectorState extends State<GifSelector> {
         );
       }
     } finally {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+        if (onUpdate != null) onUpdate();
+      }
     }
   }
 
   void _showGifPicker() {
-    _loadGifs();
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -42,6 +51,10 @@ class _GifSelectorState extends State<GifSelector> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setModalState) {
+            if (_gifs.isEmpty && !_isLoading) {
+              Future.microtask(() => _loadGifs(() => setModalState(() {})));
+            }
+
             return Container(
               padding: const EdgeInsets.all(16),
               height: 400,
@@ -88,11 +101,9 @@ class _GifSelectorState extends State<GifSelector> {
                     ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () async {
-                      setModalState(() => _isLoading = true);
-                      await _loadGifs();
-                      setModalState(() => _isLoading = false);
-                    },
+                    onPressed: _isLoading 
+                      ? null 
+                      : () => _loadGifs(() => setModalState(() {})),
                     child: const Text('Reload GIFs'),
                   ),
                 ],
