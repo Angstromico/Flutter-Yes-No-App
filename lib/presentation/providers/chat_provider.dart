@@ -109,8 +109,12 @@ class ChatProvider extends ChangeNotifier {
       imageUrl: imageUrl,
     );
     messageList.add(newMessage);
+    _pendingUserMessages++;
+
     notifyListeners();
     moveScrollToBottom();
+
+    await _processPendingMessages();
   }
 
   Future<void> sendImageBytes(Uint8List bytes) async {
@@ -120,8 +124,12 @@ class ChatProvider extends ChangeNotifier {
       imageBytes: bytes,
     );
     messageList.add(newMessage);
+    _pendingUserMessages++;
+
     notifyListeners();
     moveScrollToBottom();
+
+    await _processPendingMessages();
   }
 
   Future<void> herReply() async {
