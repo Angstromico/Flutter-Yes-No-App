@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
 import 'package:yes_no_app/presentation/providers/chat_provider.dart';
+import 'package:yes_no_app/presentation/providers/theme_provider.dart';
 import 'package:yes_no_app/presentation/widgets/chat/gif_selector.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/message_field_box.dart';
@@ -13,6 +14,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedChatType = context.watch<ChatProvider>().selectedChatType;
+    final themeMode = context.watch<ThemeProvider>().themeMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,6 +29,14 @@ class ChatScreen extends StatelessWidget {
         ),
         title: Text(selectedChatType == ChatType.jokes ? 'Jokes' : 'Yes or no'),
         centerTitle: false,
+        actions: [
+          IconButton(
+            icon: Icon(
+              themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode,
+            ),
+            onPressed: () => context.read<ThemeProvider>().toggleTheme(),
+          ),
+        ],
       ),
       body: _ChatView(),
     );

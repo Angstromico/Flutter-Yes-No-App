@@ -17,14 +17,29 @@ const List<Color> _colorList = [
 ];
 
 class AppTheme {
-  final int colorIndex = 0;
+  final int colorIndex;
 
-  AppTheme({required int colorIndex}) : assert(colorIndex >= 0, 'colorIndex must be a non-negative integer and color must be between 0 and ${_colorList.length - 1}'), assert(colorIndex < _colorList.length, 'colorIndex must be less than ${_colorList.length}');
+  AppTheme({required this.colorIndex})
+      : assert(colorIndex >= 0, 'colorIndex must be a non-negative integer'),
+        assert(colorIndex < _colorList.length, 'colorIndex must be less than ${_colorList.length}');
 
-  ThemeData theme() {
+  ThemeData lightTheme() {
     return ThemeData(
       useMaterial3: true,
+      brightness: Brightness.light,
       colorSchemeSeed: _colorList[colorIndex % _colorList.length],
     );
+  }
+
+  ThemeData darkTheme() {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      colorSchemeSeed: _colorList[colorIndex % _colorList.length],
+    );
+  }
+
+  ThemeData theme() {
+    return lightTheme();
   }
 }
