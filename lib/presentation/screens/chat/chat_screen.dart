@@ -12,15 +12,20 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedChatType = context.watch<ChatProvider>().selectedChatType;
+
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3541/3541871.png'),
+            backgroundImage: const NetworkImage(
+              'https://cdn-icons-png.flaticon.com/512/3541/3541871.png',
+            ),
+            onBackgroundImageError: (_, _) {},
           ),
         ),
-        title: const Text('Mi Amor ♥'),
+        title: Text(selectedChatType == ChatType.jokes ? 'Jokes' : 'Yes or no'),
         centerTitle: false,
       ),
       body: _ChatView(),
@@ -31,7 +36,6 @@ class ChatScreen extends StatelessWidget {
 class _ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final chatProvider = context.watch<ChatProvider>();
 
     return SafeArea(
@@ -39,10 +43,14 @@ class _ChatView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
+            const _ChatTypeSelector(),
+            const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 controller: chatProvider.chatScrollController,
-                itemCount: chatProvider.messageList.length + (chatProvider.isTyping ? 1 : 0),
+                itemCount:
+                    chatProvider.messageList.length +
+                    (chatProvider.isTyping ? 1 : 0),
                 itemBuilder: (context, index) {
                   if (index < chatProvider.messageList.length) {
                     final message = chatProvider.messageList[index];
@@ -51,6 +59,7 @@ class _ChatView extends StatelessWidget {
                       message: message.text,
                       fromMe: (message.fromWho == FromWho.me),
                       imageUrl: message.imageUrl,
+                      imageBytes: message.imageBytes,
                     );
                   }
 
@@ -62,9 +71,7 @@ class _ChatView extends StatelessWidget {
             /// Caja de texto de mensajes
             Row(
               children: [
-                GifSelector(
-                  onGifSelected: chatProvider.sendImage,
-                ),
+                GifSelector(onGifSelected: chatProvider.sendImage),
                 Expanded(
                   child: MessageFieldBox(
                     // onValue: (value) => chatProvider.sendMessage(value),
@@ -82,6 +89,58 @@ class _ChatView extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ChatTypeSelector extends StatelessWidget {
+  const _ChatTypeSelector();
+
+  @override
+  Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
+    final colors = Theme.of(context).colorScheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Choose chat type',
+            style: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(color: colors.onSurfaceVariant),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: SegmentedButton<ChatType>(
+              segments: const [
+                ButtonSegment(
+                  value: ChatType.yesNo,
+                  label: Text('Yes or no'),
+                  icon: Icon(Icons.help_outline),
+                ),
+                ButtonSegment(
+                  value: ChatType.jokes,
+                  label: Text('Jokes'),
+                  icon: Icon(Icons.celebration_outlined),
+                ),
+              ],
+              selected: {chatProvider.selectedChatType},
+              onSelectionChanged: (selection) {
+                chatProvider.setChatType(selection.first);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
