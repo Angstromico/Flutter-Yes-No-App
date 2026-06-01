@@ -1,7 +1,22 @@
 # Yes No App
 
-A Flutter application that allows users to get a "Yes" or "No" answer to their questions.
+An interactive Flutter application where you can chat with two different personalities:
 
+### 🤖 Chat Modes
+- **Yes or No**: Ask a question (ending with `?`) and get a random animated GIF response via the Yes/No API.
+- **Jokes**: Engage in a funny conversation with a joke setup and punchline flow.
+
+### ✨ Features
+- **Interactive Chat UI**: Beautifully styled chat bubbles with distinct colors for user and responses.
+- **GIF Support**: Send and receive animated GIFs.
+- **Dual Chat Modes**: Switch between different chat experiences seamlessly.
+- **Environment Config**: Uses `.env` for managing API endpoints.
+
+### 🛠️ Tech Stack
+- **Flutter**: Cross-platform UI framework.
+- **Dio**: Powerful HTTP client for API requests.
+- **Provider**: State management.
+- **Flutter Dotenv**: Environment variable management.
 
 <p align="center">
   <img src="./main.png" alt="Project banner" width="600"/>
@@ -22,7 +37,13 @@ Before you begin, ensure you have the [Flutter SDK](https://docs.flutter.dev/get
    cd Flutter-Yes-No-App
    ```
 
-2. Install dependencies:
+2. Create a `.env` file in the root directory and add the following:
+   ```env
+   YES_NO_API_URL=https://yesno.wtf/api
+   JOKE_API_URL=https://official-joke-api.appspot.com/random_joke
+   ```
+
+3. Install dependencies:
    ```bash
    flutter pub get
    ```
@@ -59,6 +80,8 @@ Then run:
 ## Project Structure
 - `lib/`: Contains the application source code.
 - `lib/presentation/`: UI screens and components.
+- `lib/infrastructure/`: Data sources and models.
+- `lib/domain/`: Business logic and entities.
 - `assets/`: Images and other static resources.
 
 ## Resources
